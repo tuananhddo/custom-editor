@@ -14,7 +14,6 @@ import Vec4Widget from '../widgets/Vec4Widget';
 import Vec3Widget from '../widgets/Vec3Widget';
 import Vec2Widget from '../widgets/Vec2Widget';
 import { updateEntity } from '../../lib/entity';
-import ModelWidget from '../widgets/ModelWidget';
 
 export default class PropertyRow extends React.Component {
   static propTypes = {
@@ -105,9 +104,6 @@ export default class PropertyRow extends React.Component {
       }
       case 'boolean': {
         return <BooleanWidget {...widgetProps} />;
-      }
-      case 'model': {
-        return <ModelWidget {...widgetProps} />;
       }
       default: {
         return <InputWidget {...widgetProps} />;
