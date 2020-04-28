@@ -2,6 +2,7 @@ import classnames from 'classnames';
 import React from 'react';
 import Events from '../../lib/Events.js';
 import { saveBlob, saveString } from '../../lib/utils';
+import {DEFAULT_URL} from '../../API/AxiosConfig';
 
 const LOCALSTORAGE_MOCAP_UI = 'aframeinspectormocapuienabled';
 
@@ -70,7 +71,7 @@ export default class Toolbar extends React.Component {
    */
   writeChanges = () => {
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:3000/sync/save');
+    xhr.open('POST', DEFAULT_URL + '/sync/save');
     xhr.onerror = () => {
       alert('aframe-watcher not running. This feature requires a companion service running locally. npm install aframe-watcher to save changes back to file. Read more at supermedium.com/aframe-watcher');
     };
