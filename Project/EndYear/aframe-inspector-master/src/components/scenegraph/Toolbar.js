@@ -70,7 +70,7 @@ export default class Toolbar extends React.Component {
    */
   writeChanges = () => {
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:51234/save');
+    xhr.open('POST', 'http://localhost:3000/sync/save');
     xhr.onerror = () => {
       alert('aframe-watcher not running. This feature requires a companion service running locally. npm install aframe-watcher to save changes back to file. Read more at supermedium.com/aframe-watcher');
     };
