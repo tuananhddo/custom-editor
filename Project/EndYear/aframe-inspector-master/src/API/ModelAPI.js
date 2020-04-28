@@ -1,4 +1,5 @@
-import getAxios, {DEFAULT_URL} from './axiosConfig';
+import getAxios from './axiosConfig';
+import {DEFAULT_URL} from './constants';
 
 export default {
 

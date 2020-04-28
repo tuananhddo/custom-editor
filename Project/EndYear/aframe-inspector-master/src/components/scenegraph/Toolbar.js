@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import React from 'react';
 import Events from '../../lib/Events.js';
 import { saveBlob, saveString } from '../../lib/utils';
-import {DEFAULT_URL} from '../../API/AxiosConfig';
+import {DEFAULT_URL} from '../../API/constants';
 
 const LOCALSTORAGE_MOCAP_UI = 'aframeinspectormocapuienabled';
 

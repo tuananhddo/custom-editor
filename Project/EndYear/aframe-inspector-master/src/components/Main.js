@@ -10,19 +10,21 @@ import SceneGraph from './scenegraph/SceneGraph';
 import CameraToolbar from './viewport/CameraToolbar';
 import TransformToolbar from './viewport/TransformToolbar';
 import ViewportHUD from './viewport/ViewportHUD';
-import { injectCSS } from '../lib/utils';
+import {injectCSS} from '../lib/utils';
+import ModelModal from './modals/ModelModal';
 
 // Megahack to include font-awesome.
 injectCSS('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
 
 export default class Main extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     this.state = {
       entity: null,
       inspectorEnabled: true,
       isModalTexturesOpen: false,
+      isModelModalOpen: false,
       sceneEl: AFRAME.scenes[0],
       visible: {
         scenegraph: true,
@@ -65,36 +67,52 @@ export default class Main extends React.Component {
     });
   }
 
-  componentDidMount() {
+  componentDidMount () {
     Events.on(
       'opentexturesmodal',
-      function(selectedTexture, textureOnClose) {
+      function (selectedTexture, textureOnClose) {
         this.setState({
           selectedTexture: selectedTexture,
           isModalTexturesOpen: true,
+
           textureOnClose: textureOnClose
+        });
+
+      }.bind(this)
+    );
+    Events.on(
+      'openModelModal',
+      function (selectedModel, modelOnClose) {
+        this.setState({
+          selectedModel: selectedModel,
+          isModelModalOpen: true,
+          modelOnClose: modelOnClose
         });
       }.bind(this)
     );
 
     Events.on('entityselect', entity => {
-      this.setState({ entity: entity });
+      this.setState({entity: entity});
     });
 
     Events.on('inspectortoggle', enabled => {
-      this.setState({ inspectorEnabled: enabled });
+      this.setState({inspectorEnabled: enabled});
     });
 
     Events.on('openhelpmodal', () => {
-      this.setState({ isHelpOpen: true });
+      this.setState({isHelpOpen: true});
     });
   }
+
   onCloseHelpModal = value => {
-    this.setState({ isHelpOpen: false });
+    this.setState({isHelpOpen: false});
+  };
+  onCloseModelModal = value => {
+    this.setState({isModelOpen: false});
   };
 
   onModalTextureOnClose = value => {
-    this.setState({ isModalTexturesOpen: false });
+    this.setState({isModalTexturesOpen: false});
     if (this.state.textureOnClose) {
       this.state.textureOnClose(value);
     }
@@ -108,7 +126,7 @@ export default class Main extends React.Component {
     }
   };
 
-  renderComponentsToggle() {
+  renderComponentsToggle () {
     if (!this.state.entity || this.state.visible.attributes) {
       return null;
     }
@@ -116,7 +134,7 @@ export default class Main extends React.Component {
       <div className="toggle-sidebar right">
         <a
           onClick={() => {
-            this.setState({ visible: { attributes: true } });
+            this.setState({visible: {attributes: true}});
             this.forceUpdate();
           }}
           className="fa fa-plus"
@@ -126,7 +144,7 @@ export default class Main extends React.Component {
     );
   }
 
-  renderSceneGraphToggle() {
+  renderSceneGraphToggle () {
     if (this.state.visible.scenegraph) {
       return null;
     }
@@ -134,7 +152,7 @@ export default class Main extends React.Component {
       <div className="toggle-sidebar left">
         <a
           onClick={() => {
-            this.setState({ visible: { scenegraph: true } });
+            this.setState({visible: {scenegraph: true}});
             this.forceUpdate();
           }}
           className="fa fa-plus"
@@ -144,7 +162,7 @@ export default class Main extends React.Component {
     );
   }
 
-  render() {
+  render () {
     const scene = this.state.sceneEl;
     const toggleButtonText = this.state.inspectorEnabled
       ? 'Back to Scene'
@@ -170,9 +188,9 @@ export default class Main extends React.Component {
           />
 
           <div id="viewportBar">
-            <CameraToolbar />
-            <ViewportHUD />
-            <TransformToolbar />
+            <CameraToolbar/>
+            <ViewportHUD/>
+            <TransformToolbar/>
           </div>
 
           <div id="rightPanel">
@@ -192,6 +210,12 @@ export default class Main extends React.Component {
           isOpen={this.state.isModalTexturesOpen}
           selectedTexture={this.state.selectedTexture}
           onClose={this.onModalTextureOnClose}
+        />
+        <ModelModal
+          // ref="modalmodels"
+          isOpen={this.state.isModelModalOpen}
+          selectedModel={this.state.selectedModel}
+          onClose={this.onCloseModelModal}
         />
       </div>
     );
