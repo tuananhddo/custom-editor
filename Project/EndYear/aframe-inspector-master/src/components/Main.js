@@ -12,6 +12,7 @@ import TransformToolbar from './viewport/TransformToolbar';
 import ViewportHUD from './viewport/ViewportHUD';
 import {injectCSS} from '../lib/utils';
 import ModelModal from './modals/ModelModal';
+import TransformToolbarVer2 from '../customComponents/TransformToolbarVer2';
 
 // Megahack to include font-awesome.
 injectCSS('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
@@ -188,11 +189,15 @@ export default class Main extends React.Component {
           />
 
           <div id="viewportBar">
-            <CameraToolbar/>
+            {/*<CameraToolbar/>*/}
             <ViewportHUD/>
-            <TransformToolbar/>
+            {/*<TransformToolbar/>*/}
           </div>
-
+          <div id="viewportBarCenter">
+            {/*<CameraToolbar/>*/}
+            {/*<ViewportHUD/>*/}
+            <TransformToolbarVer2/>
+          </div>
           <div id="rightPanel">
             <ComponentsSidebar
               entity={this.state.entity}
