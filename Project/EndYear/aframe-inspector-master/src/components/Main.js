@@ -189,7 +189,7 @@ export default class Main extends React.Component {
           />
 
           <div id="viewportBar">
-            {/*<CameraToolbar/>*/}
+            <CameraToolbar/>
             <ViewportHUD/>
             {/*<TransformToolbar/>*/}
           </div>

@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from 'react';
+import ModelAPI from '../API/ModelAPI';
+import Modal from '../components/modals/Modal';
 
 const TransformButtons = [
   {value: 'translate', icon: 'fa-arrows-alt'},
@@ -46,16 +48,38 @@ export default function TransformToolbarVer2 (props) {
     Events.emit('transformmodechange', mode);
     ga('send', 'event', 'Toolbar', 'selectHelper', mode);
   };
+  document.onmousedown = (e) => {
+    console.log(e);
+  };
 
+  function onFileChange (e) {
+    console.log(e.target.files[0]);
+    const formData = new FormData();
+    formData.append(
+      'model',
+      e.target.files[0]
+    );
+    // if (confirm('Bạn muốn tải model lên ?') === true) {
+    //   ModelAPI.uploadModel(formData);
+    // }
+    ModelAPI.uploadModel(formData);
+
+  }
+
+  const openDialog = () => {
+    Events.emit('openModelModal', '', item => {
+    });
+  };
   return (
     <div id="transformToolbar" className="toolbarButtons">
       {renderTransformButtons()}
       <a
         title={FunctionButtons[0].value}
-        // onClick={() => uploadModel}
-        // className={classes}
+        onClick={openDialog}
+        className={FunctionButtons[0].icon}
       >
-        <input type="file" onChange={()=>{}}/>
+
+        {/*<input type="file" onChange={onFileChange}/>*/}
       </a>
     </div>
   );
