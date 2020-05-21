@@ -109,7 +109,7 @@ export default class Main extends React.Component {
     this.setState({isHelpOpen: false});
   };
   onCloseModelModal = value => {
-    this.setState({isModelOpen: false});
+    this.setState({isModelModalOpen: false});
   };
 
   onModalTextureOnClose = value => {
@@ -176,7 +176,7 @@ export default class Main extends React.Component {
         </a>
 
         {this.renderSceneGraphToggle()}
-        {this.renderComponentsToggle()}
+        {/*{this.renderComponentsToggle()}*/}
 
         <div
           id="inspectorContainer"

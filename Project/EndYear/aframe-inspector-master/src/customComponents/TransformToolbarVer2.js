@@ -2,19 +2,25 @@ import React, {useEffect, useState} from 'react';
 import ModelAPI from '../API/ModelAPI';
 import Modal from '../components/modals/Modal';
 
+var Events = require('../lib/Events.js');
+
 const TransformButtons = [
   {value: 'translate', icon: 'fa-arrows-alt'},
   {value: 'rotate', icon: 'fa-repeat'},
   {value: 'scale', icon: 'fa-expand'}
 ];
+const openDialog = () => {
+  Events.emit('openModelModal', '', item => {
+  });
+};
 const FunctionButtons = [
-  {value: 'Upload', icon: 'fa-arrows-alt'}
+  {value: 'Upload', icon: 'fa-arrows-alt', onClick: openDialog}
 ];
 
 export default function TransformToolbarVer2 (props) {
   const [selectedTransform, setSelectedTransform] = useState('translate');
-  var Events = require('../lib/Events.js');
   var classNames = require('classnames');
+
   useEffect(() => {
     Events.on('transformmodechange', mode => {
       setSelectedTransform(mode);
@@ -37,6 +43,29 @@ export default function TransformToolbarVer2 (props) {
             value={option.value}
             key={i}
             onClick={() => changeTransformMode(option.value)}
+            className={classes}
+          />
+        );
+      }
+    );
+  };
+  const renderFunctionButtons = () => {
+    return FunctionButtons.map(
+      (option, i) => {
+        var selected = option.value === selectedTransform;
+        var classes = classNames({
+          button: true,
+          fa: true,
+          [option.icon]: true,
+          active: selected
+        });
+
+        return (
+          <a
+            title={option.value}
+            value={option.value}
+            key={i}
+            onClick={option.onClick}
             className={classes}
           />
         );
@@ -66,21 +95,10 @@ export default function TransformToolbarVer2 (props) {
 
   }
 
-  const openDialog = () => {
-    Events.emit('openModelModal', '', item => {
-    });
-  };
   return (
     <div id="transformToolbar" className="toolbarButtons">
       {renderTransformButtons()}
-      <a
-        title={FunctionButtons[0].value}
-        onClick={openDialog}
-        className={FunctionButtons[0].icon}
-      >
-
-        {/*<input type="file" onChange={onFileChange}/>*/}
-      </a>
+      {renderFunctionButtons()}
     </div>
   );
 }

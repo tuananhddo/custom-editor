@@ -8,7 +8,7 @@
   </head>
   <body>
     <a-scene debug="true">
-      <a-assets>
+      <a-assets id="mainAsset">
         <a-mixin id="blue" material="color: #4CC3D9"></a-mixin>
         <a-mixin id="blueBox" geometry="primitive: box; depth: 2; height: 5; width: 1" material="color: #4CC3D9"></a-mixin>
         <a-mixin id="box" geometry="primitive: box; depth: 1; height: 1; width: 1"></a-mixin>
@@ -25,17 +25,12 @@
       <a-entity id="environment" environment="preset: forest; fog: false"></a-entity>
 
       <!-- Meshes. -->
-      <a-entity id="blueBox" mixin="blueBox" position="0 8 0"></a-entity>
-      <a-entity id="shortOrangeBox" mixin="short orange box" position="-5 2 0"></a-entity>
-      <a-entity id="shortYellowBox" mixin="short yellow box" position="5 2 0"></a-entity>
-      <a-entity id="redBox" geometry="primitive: box" material="color:#f00" position="-4 1 0" animation="property: object3D.rotation.y; to: 360; loop: true; easing: linear; dur: 9600"></a-entity>
       <a-entity id="yellowSphere" geometry="primitive: sphere" material="color:#ff0; metalness:0.0; roughness:1.0" position="-2 2 -2"></a-entity>
 <!--      <a-box src="https://aframe.io/sample-assets/assets/images/bricks/brick_bump.jpg" position="-5 5 -2" width="1" color="#F16745"></a-box>-->
       <a-box id="box" position="0 2 0" height="2" color="#FFC65D"></a-box>
 
       <!-- Models. -->
       <a-entity class="boxClass" geometry="primitive: box" material="src: #crateImg" position="3 4 0"></a-entity>
-      <a-entity class="boxClass" geometry="primitive: box" material="color: #0f0" position="4 2 4"></a-entity>
 
       <!-- Floor. -->
       <a-entity id="floor" geometry="primitive: box; height: .2; depth: 24; width: 24"
@@ -56,8 +51,8 @@
         </a-entity>
       </a-entity>
 
-      <a-entity id="leftHand" laser-controls="hand: left"></a-entity>
-      <a-entity id="rightHand" laser-controls="hand: right"></a-entity>
+<!--      <a-entity id="leftHand" laser-controls="hand: left"></a-entity>-->
+<!--      <a-entity id="rightHand" laser-controls="hand: right"></a-entity>-->
     </a-scene>
 
     <script src="../dist/aframe-inspector.js"></script>

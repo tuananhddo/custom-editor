@@ -13,10 +13,9 @@ export default function ModelWidget (props) {
 
   }, []);
 
-  const testVal = 'http://localhost:3000/models/wall.glb';
   const initValue = props.value || '';
   const [chosenValue, setChosenValue] = useState({label: 1, value: initValue});
-  const options = [1, 2, 3, initValue, testVal].map(i => {
+  const options = [1, 2, 3, initValue].map(i => {
     return {label: i, value: i};
   });
 //   const hint = 'ADD';
