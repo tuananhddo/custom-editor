@@ -5,6 +5,7 @@ import ModelAPI from '../../API/ModelAPI';
 import {Alert, Button} from 'reactstrap';
 import {toast} from 'react-toastify';
 import Events from '../../lib/Events';
+import {DEFAULT_MODEL_URL} from '../../API/constants';
 
 export default function ModelModal (props) {
   var Events = require('../../lib/Events.js');
@@ -39,7 +40,7 @@ export default function ModelModal (props) {
     Events.emit('entitycreate', {
       element: 'a-asset-item', components: {
         id: name,
-        src: link
+        src: DEFAULT_MODEL_URL + '/' + link
       }
     });
     const assetItem = document.querySelectorAll('a-asset-item');
