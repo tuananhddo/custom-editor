@@ -1,5 +1,5 @@
 import getAxios from './axiosConfig';
-import {DEFAULT_MODEL_URL} from './constants';
+import {DEFAULT_ENTITY_URL, DEFAULT_MODEL_URL, DEFAULT_URL} from './constants';
 
 export default {
 
@@ -11,6 +11,9 @@ export default {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-    })
+    });
+  },
+  createEntity (definition) {
+    return getAxios().post(`${DEFAULT_URL}/sync/create`, definition);
   }
-}
+};
